@@ -15,7 +15,7 @@ class QGPR(BaseEstimator, RegressorMixin):
 
     This class implements the Gaussian process regression analogous to sklearn
     but is not a wrapper.
-    The implementation is based on Algorithm 2.1 of Ref. [1]
+    The implementation is based on Algorithm 2.1 of Ref. [1]_.
 
     Args:
         quantum_kernel (KernelMatrixBase): The quantum kernel matrix to be used for the Gaussian process
@@ -24,11 +24,11 @@ class QGPR(BaseEstimator, RegressorMixin):
                 This regularization improves the conditioning of the problem and assure the solvability of the resulting
                 linear system. Larger values specify stronger regularization.
         normalize_y: (bool), default=False: Whether or not to normalize
-            the target values y by removing the mean and scaling to
-            unit-variance. This is recommended for cases where zero-mean, unit-variance priors are used. Note that, in this implementation,
+                the target values y by removing the mean and scaling to
+                unit-variance. This is recommended for cases where zero-mean, unit-variance priors are used. Note that, in this implementation,
                 the normalisation is reversed before the GP predictions are reported.
         regularize: (string), default='full': enable full gram matrix regularization technique via 'full'.
-            or enable Tikhonov regularization via 'tikhonov'.
+                or enable Tikhonov regularization via 'tikhonov'.
 
     See Also
     --------
@@ -37,7 +37,7 @@ class QGPR(BaseEstimator, RegressorMixin):
 
     References
     ----------
-       [1] `Carl E. Rasmussen and Christopher K.I. Williams,
+    .. [1] `Carl E. Rasmussen and Christopher K.I. Williams,
        "Gaussian Processes for Machine Learning",
        MIT Press 2006 <https://www.gaussianprocess.org/gpml/chapters/RW.pdf>`_
 
@@ -61,12 +61,7 @@ class QGPR(BaseEstimator, RegressorMixin):
         qgpr_ansatz.predict(sample_test)
 
     Methods:
-    ---------
-        fit(X_train, y_train): Fit the model to the training data.
-        predict(X_test, return_std=True, return_cov=False): Predict using the Gaussian process regression model.
-
-
-
+    --------
     """
 
     def __init__(
@@ -94,12 +89,10 @@ class QGPR(BaseEstimator, RegressorMixin):
         Depending on the choice of normalize_y the target values are normalized.
 
         Args:
-        ---------
             X_train: The training data of shape (n_samples, n_features)
             y_train: Target values in training data of shape (n_samples,)
 
         Returns:
-        ---------
             self: object
             QuantumGaussianProcessRegressor class instance.
         """
@@ -137,13 +130,11 @@ class QGPR(BaseEstimator, RegressorMixin):
         (`return_cov=True`). Note that at most one of the two can be requested.
 
         Args:
-        ---------
             X_test: The test data of shape (n_samples, n_features)
             return_std: (bool), default=True: Whether or not to return the standard deviation of the prediction
             return_cov: (bool), default=False: Whether or not to return the covariance of the prediction
 
         Returns:
-        ---------
             y_mean: The predicted values of shape (n_samples,)
                 Mean of predictive distribution at query points.
             y_std: The standard deviation of the prediction of shape (n_samples,), optional
@@ -209,3 +200,6 @@ class QGPR(BaseEstimator, RegressorMixin):
 #         K_train: The kernel matrix of the training data
 #         K_test: The kernel matrix of the test data
 #         K_testtrain: The kernel matrix of the test and training data
+# Methods:
+#     fit(X_train, y_train): Fit the model to the training data.
+#     predict(X_test, return_std=True, return_cov=False): Predict using the Gaussian process regression model.

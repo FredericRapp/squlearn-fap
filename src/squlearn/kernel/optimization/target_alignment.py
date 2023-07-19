@@ -12,24 +12,23 @@ class TargetAlignment(KernelLossBase):
     This class can be used to compute the target alignment for a given quantum kernel :math:`K_{θ}` with variational parameters :math:`θ`.
     The defintion of the function is taken from Equation (27,28) of [1]_.
     The log-likelihood function is defined as:
+
     .. math::
+
         TA(K_{θ}) = - \\frac{\\sum_{i,j} K_{θ}(x_i, x_j) y_i y_j}{\\sqrt{\\sum_{i,j} K_{θ}(x_i, x_j)^2 \\sum_{i,j} y_i^2 y_j^2}}
 
     Args:
-    ----------
         quantum_kernel (KernelMatrixBase): The quantum kernel to be used
             (either a fidelity quantum kernel (FQK) or projected quantum kernel (PQK) must be provided).
         sigma: (float), default=0.0: Hyperparameter for the regularization strength.
 
     References
     -----------
-        [1] T. Hubregtsen et al., "Training Quantum Embedding Kernels on Near-Term Quantum Computers",
+    ..  [1] T. Hubregtsen et al., "Training Quantum Embedding Kernels on Near-Term Quantum Computers",
         `arXiv:2105.02276v1 (2021) <https://arxiv.org/pdf/2105.02276.pdf>`_.
 
     Methods:
-    ----------
-        compute(parameter_values: Sequence[float], data: np.ndarray, labels: np.ndarray): Compute the negative kernel target alignment.
-
+    --------
     """
 
     def __init__(self, quantum_kernel: KernelMatrixBase, sigma=0.0):
@@ -44,14 +43,14 @@ class TargetAlignment(KernelLossBase):
         rescale_class_labels=True,
     ) -> float:
         """Compute the target alignment.
+
         Args:
-        ----------
-            parameter_values (Sequence[float]): The parameter values for the variational quantum kernel parameters.
+            parameter_values: (Sequence[float]): The parameter values for the variational quantum kernel parameters.
             data (np.ndarray): The  training data to be used for the kernel matrix.
             labels (np.ndarray): The training labels.
-            rescale_class_labels (bool), defaul=True: Whether to rescale the class labels to -1 and 1.
+            rescale_class_labels: (bool), defaul=True: Whether to rescale the class labels to -1 and 1.
+
         Returns:
-        ----------
             float: The negative target alignment.
         """
 

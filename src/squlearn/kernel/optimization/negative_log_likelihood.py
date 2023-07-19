@@ -11,26 +11,26 @@ class NLL(KernelLossBase):
     """
     Negative log likelihood loss function.
     This class can be used to compute the negative log likelihood loss function for a given quantum kernel :math:`K_{θ}` with variational parameters :math:`θ`.
-    The defintion of the function is taken from Equation 5.8 Chapter 5.4 of [RW2006]_.
+    The defintion of the function is taken from Equation 5.8 Chapter 5.4 of [1]_.
     The log-likelihood function is defined as:
+
     .. math::
+
         L(θ) = -\\frac{1}{2} log(|K_{θ} + σI|) - \\frac{1}{2} y^{T}(K_{θ} + σI)^{-1}y - \\frac{n}{2} log(2π)
+
     Args:
-    ----------
         quantum_kernel (KernelMatrixBase): The quantum kernel to be used
             (either a fidelity quantum kernel (FQK) or projected quantum kernel (PQK) must be provided).
         sigma: (float), default=0.0: Hyperparameter for the regularization strength.
 
     References
     ----------
-       [RW2006] `Carl E. Rasmussen and Christopher K.I. Williams,
+    .. [1] `Carl E. Rasmussen and Christopher K.I. Williams,
        "Gaussian Processes for Machine Learning",
        MIT Press 2006 <https://www.gaussianprocess.org/gpml/chapters/RW.pdf>`_
 
     Methods:
-    ----------
-        compute(parameter_values: Sequence[float], data: np.ndarray, labels: np.ndarray): Compute the negative log likelihood loss function.
-
+    --------
     """
 
     def __init__(self, quantum_kernel: KernelMatrixBase, sigma=0.0):
@@ -42,13 +42,13 @@ class NLL(KernelLossBase):
         self, parameter_values: Sequence[float], data: np.ndarray, labels: np.ndarray
     ) -> float:
         """Compute the negative log likelihood loss function.
+
         Args:
-        ----------
-            parameter_values (Sequence[float]): The parameter values for the variational quantum kernel parameters.
+            parameter_values: (Sequence[float]): The parameter values for the variational quantum kernel parameters.
             data (np.ndarray): The  training data to be used for the kernel matrix.
             labels (np.ndarray): The training labels.
+
         Returns:
-        ----------
             float: The negative log likelihood loss function.
         """
 

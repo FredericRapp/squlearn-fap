@@ -21,10 +21,14 @@ class QGPC(GaussianProcessClassifier):
         quantum_kernel (KernelMatrixBase): The quantum kernel matrix to be used for the Gaussian process
                 (either a fidelity quantum kernel (FQK) or projected quantum kernel (PQK) must be provided)
 
+    See Also
+    --------
+        squlearn.kernel.ml.QSVC : Quantum Support Vector classification.
 
     **Example**
 
     .. code-block::
+
         from sklearn.datasets import load_iris
         from squlearn import Executor
         from squlearn.feature_map import QEKFeatureMap
@@ -43,6 +47,8 @@ class QGPC(GaussianProcessClassifier):
             array([[0.85643716, 0.07037611, 0.07318673],
             [0.80314475, 0.09988938, 0.09696586]])
 
+    Methods:
+    --------
     """
 
     def __init__(self, quantum_kernel: KernelMatrixBase, **kwargs):

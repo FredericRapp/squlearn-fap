@@ -10,11 +10,10 @@ from ...optimizers.optimizer_base import OptimizerBase
 class KernelOptimizer(KernelOptimizerBase):
     """
     Quantum kernel optimizer.
-        This class can be used to optimize the variational parameters of a quantum kernel.
+    This class can be used to optimize the variational parameters of a quantum kernel.
 
 
     Args:
-    ----------
         loss (KernelLossBase): The loss function to be minimized.
         optimizer (OptimizerBase): The optimizer to be used.
         initial_parameters (Optional[Sequence[float]]): Initial parameters for the optimizer.
@@ -23,6 +22,7 @@ class KernelOptimizer(KernelOptimizerBase):
     **Example**
 
     .. code-block::
+
         from squlearn import Executor
         from squlearn.feature_map import QEKFeatureMap
         from squlearn.kernel.matrix import FidelityKernel
@@ -39,7 +39,6 @@ class KernelOptimizer(KernelOptimizerBase):
 
     Methods:
     ----------
-        run_optimization(x: np.ndarray, y: np.ndarray = None): Run the optimization and return the result.
     """
 
     def __init__(
@@ -60,12 +59,10 @@ class KernelOptimizer(KernelOptimizerBase):
         """Run the optimization and return the result.
 
         Args:
-        ----------
             x (np.ndarray): The input data.
             y (np.ndarray): The labels.
 
         Returns:
-        ----------
             OptimizeResult: The optimization result.
         """
         num_params = self._quantum_kernel.num_parameters
