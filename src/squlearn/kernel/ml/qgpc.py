@@ -1,4 +1,4 @@
-# QGPC
+""" Quantum Gaussian process classifier"""
 import numpy as np
 from ..matrix.kernel_matrix_base import KernelMatrixBase
 from .kernel_util import kernel_wrapper
@@ -8,7 +8,7 @@ from sklearn.gaussian_process import GaussianProcessClassifier
 class QGPC(GaussianProcessClassifier):
     """Quantum Gaussian process classification (QGPC), that extends the scikit-learn
     'sklearn.gaussian_process.GaussianProcessClassifier <https://scikit-learn.org/stable/modules/generated/sklearn.gaussian_process.GaussianProcessClassifier.html>'_
-    GaussianProcessClassifier class 
+    GaussianProcessClassifier class
     to use a quantum kernel.
 
     This class shows how to use a quantum kernel for regression. The class inherits its methods
@@ -18,7 +18,7 @@ class QGPC(GaussianProcessClassifier):
 
     Args:
     ---------
-        quantum_kernel (KernelMatrixBase): The quantum kernel matrix to be used in the KRR pipeline
+        quantum_kernel (KernelMatrixBase): The quantum kernel matrix to be used for the Gaussian process
                 (either a fidelity quantum kernel (FQK) or projected quantum kernel (PQK) must be provided)
 
 
@@ -26,6 +26,10 @@ class QGPC(GaussianProcessClassifier):
 
     .. code-block::
         from sklearn.datasets import load_iris
+        from squlearn import Executor
+        from squlearn.feature_map import QEKFeatureMap
+        from squlearn.kernel.matrix import FidelityKernel
+        from squlearn.kernel.ml import QGPC
         X, y = load_iris(return_X_y=True)
 
         fmap = QEKFeatureMap(num_qubits=X.shape[1], num_features=X.shape[1], num_layers=2)

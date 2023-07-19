@@ -1,3 +1,4 @@
+"""Quantum Gaussian Process Regressor"""
 from ..matrix.kernel_matrix_base import KernelMatrixBase
 from .kernel_util import regularize_full_kernel, tikhonov_regularization
 
@@ -14,12 +15,12 @@ class QGPR(BaseEstimator, RegressorMixin):
     """Quantum Gaussian Process Regression (QGPR).
 
     This class implements the Gaussian process regression analogous to sklearn
-    but is not a wrapper. 
-    The implementation is based on Algorithm 2.1 of https://gaussianprocess.org/gpml/chapters/RW.pdf
+    but is not a wrapper.
+    The implementation is based on Algorithm 2.1 of [RW2006]_.
 
     Args:
     ---------
-        quantum_kernel (KernelMatrixBase): The quantum kernel matrix to be used in the KRR pipeline
+        quantum_kernel (KernelMatrixBase): The quantum kernel matrix to be used for the Gaussian process
                 (either a fidelity quantum kernel (FQK) or projected quantum kernel (PQK) must be provided)
         sigma: (float), default=1.e-6: Hyperparameter for the regularization strength; must be a positive float.
                 This regularization improves the conditioning of the problem and assure the solvability of the resulting
@@ -31,32 +32,42 @@ class QGPR(BaseEstimator, RegressorMixin):
         regularize: (string), default='full': enable full gram matrix regularization technique via 'full'.
             or enable Tikhonov regularization via 'tikhonov'.
 
-    Attributes:
-    ---------
-        quantum_kernel (KernelMatrixBase): The quantum kernel matrix to be used in the QGPR pipeline
-        X_train (np.ndarray): The training data (also required for prediction)
-        y_train (np.ndarray): Target values in training data (also required for prediction)
-        K_train: The kernel matrix of the training data
-        K_test: The kernel matrix of the test data
-        K_testtrain: The kernel matrix of the test and training data
+    See Also
+    --------
+        squlearn.kernel.ml.QKRR : Quantum Gaussian Process regression.
+        squlearn.kernel.ml.QSVR : Quantum Support Vector regression.
+
+    References
+    ----------
+       [RW2006] `Carl E. Rasmussen and Christopher K.I. Williams,
+       "Gaussian Processes for Machine Learning",
+       MIT Press 2006 <https://www.gaussianprocess.org/gpml/chapters/RW.pdf>`_
+
+       [2] F.Rapp, M.Roth "Quantum Gaussian Process Regression for Bayesian Optimization",
+       `<https://arxiv.org/pdf/2304.12923.pdf>`_.
+
 
     **Example**
 
     .. code-block::
 
+        from squlearn import Executor
+        from squlearn.feature_map import QEKFeatureMap
+        from squlearn.kernel.matrix import FidelityKernel
+        from squlearn.kernel.ml import QGPR
         fmap = QEKFeatureMap(num_qubits=num_qubits, num_features=num_features, num_layers=2)
         q_kernel = FidelityKernel(feature_map=fmap, executor=Executor("statevector_simulator"))
         q_kernel.assign_parameters(np.random.rand(fmap.num_parameters))
         qgpr_ansatz = QGPR(quantum_kernel=q_kernel)
         qgpr_ansatz.fit(sample_train,label_train)
-        qgpr_ansatz.predict(sample_test)   
+        qgpr_ansatz.predict(sample_test)
 
     Methods:
     ---------
         fit(X_train, y_train): Fit the model to the training data.
         predict(X_test, return_std=True, return_cov=False): Predict using the Gaussian process regression model.
- 
-        
+
+
 
     """
 
@@ -80,7 +91,9 @@ class QGPR(BaseEstimator, RegressorMixin):
         self._alpha = None
 
     def fit(self, X_train, y_train):
-        """Fit Quantum Gaussian process regression model to the training data.
+        """Fit Quantum Gaussian process regression model.
+        The fit method of the QGPR class just calculates the training kernel matrix.
+        Depending on the choice of normalize_y the target values are normalized.
 
         Args:
         ---------
@@ -117,7 +130,10 @@ class QGPR(BaseEstimator, RegressorMixin):
 
     def predict(self, X_test, return_std=True, return_cov=False):
         """Predict using the  Quantum Gaussian process regression model.
-
+        Depending on the choice of regularize the quantum kernel matrix is regularized.
+        The respective solution of the QKRR problem
+        is obtained by solving the linear system using scipy's Cholesky decomposition for
+        providing numercial stability
         Optionally also
         returns its standard deviation (`return_std=True`) or covariance
         (`return_cov=True`). Note that at most one of the two can be requested.
@@ -139,7 +155,6 @@ class QGPR(BaseEstimator, RegressorMixin):
                 Covariance of joint predictive distribution a query points.
                 Only returned when `return_cov` is True.
         """
-
 
         if self.K_train is None:
             raise ValueError("There is no training data. Please call the fit method first.")
@@ -179,7 +194,20 @@ class QGPR(BaseEstimator, RegressorMixin):
             return mean
 
     def calculate_cov_and_mean(self):
+        """Calculates the mean and covariance of the QGPR model"""
         QGP_mean = self.K_testtrain.dot(self._alpha)
         v = cho_solve((self._L, True), self.K_testtrain.T)
         QGP_cov = self.K_test - (self.K_testtrain @ v)
         return QGP_mean, QGP_cov
+
+
+######
+# BACKUP FOR DOCUMENTATION
+# Attributes:
+#     ---------
+#         quantum_kernel (KernelMatrixBase): The quantum kernel matrix to be used in the QGPR pipeline
+#         X_train (np.ndarray): The training data (also required for prediction)
+#         y_train (np.ndarray): Target values in training data (also required for prediction)
+#         K_train: The kernel matrix of the training data
+#         K_test: The kernel matrix of the test data
+#         K_testtrain: The kernel matrix of the test and training data
