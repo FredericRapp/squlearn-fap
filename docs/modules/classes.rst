@@ -58,15 +58,12 @@ Implemented feature maps in squlearn
    feature_map.ChebPQC
    feature_map.HZCRxCRyCRz
    feature_map.ChebRx
-   feature_map.ZFeatureMap_CX
+   feature_map.ParamZFeatureMap
    feature_map.QiskitZFeatureMap
+   feature_map.QiskitFeatureMap
 
 Implemented tools for feature maps
 ==================================
-
-.. automodule:: squlearn.feature_map
-    :no-members:
-    :no-inherited-members:
 
 .. currentmodule:: squlearn
 
@@ -75,10 +72,20 @@ Implemented tools for feature maps
    :toctree: generated/
    :template: class.rst
 
+   feature_map.FeatureMapBase
    feature_map.PrunedFeatureMap
    feature_map.LayeredFeatureMap
-   feature_map.feature_map_derivatives.FeatureMapDerivatives
-   feature_map.transpiled_feature_map.TranspiledFeatureMap
+   feature_map.FeatureMapDerivatives
+   feature_map.TranspiledFeatureMap
+
+.. autosummary::
+   :nosignatures:
+   :toctree: generated/
+   :template: function.rst
+
+   feature_map.automated_pruning
+   feature_map.pruning_from_QFI
+
 
 Implemented operators for expectation values
 ============================================
@@ -100,6 +107,19 @@ Implemented operators for expectation values
    expectation_operator.SummedProbabilities
    expectation_operator.IsingHamiltonian
    expectation_operator.CustomExpectationOperator
+
+Tools for expectation operators
+================================
+
+.. currentmodule:: squlearn
+
+.. autosummary::
+   :nosignatures:
+   :toctree: generated/
+   :template: class.rst
+
+   expectation_operator.ExpectationOperatorBase
+   expectation_operator.ExpectationOperatorDerivatives
 
 Quantum Kernel implementations
 ==============================
