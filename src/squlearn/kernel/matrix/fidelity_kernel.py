@@ -1,3 +1,4 @@
+""" Fidelity Quatnum Kernel class"""
 import numpy as np
 from typing import Union
 from .kernel_matrix_base import KernelMatrixBase

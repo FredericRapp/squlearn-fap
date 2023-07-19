@@ -6,8 +6,6 @@ import numpy as np
 from scipy.linalg import cholesky, cho_solve
 from sklearn.base import BaseEstimator, RegressorMixin
 from sklearn.preprocessing._data import _handle_zeros_in_scale
-
-##### change location pointer of helper functions ########
 from numbers import Real
 
 
@@ -16,15 +14,14 @@ class QGPR(BaseEstimator, RegressorMixin):
 
     This class implements the Gaussian process regression analogous to sklearn
     but is not a wrapper.
-    The implementation is based on Algorithm 2.1 of [RW2006]_.
+    The implementation is based on Algorithm 2.1 of Ref. [1]
 
     Args:
-    ---------
         quantum_kernel (KernelMatrixBase): The quantum kernel matrix to be used for the Gaussian process
                 (either a fidelity quantum kernel (FQK) or projected quantum kernel (PQK) must be provided)
         sigma: (float), default=1.e-6: Hyperparameter for the regularization strength; must be a positive float.
                 This regularization improves the conditioning of the problem and assure the solvability of the resulting
-                linear system. Larger values specify stronger regularization (cf., e.g., `https://en.wikipedia.org/wiki/Ridge_regression´)
+                linear system. Larger values specify stronger regularization.
         normalize_y: (bool), default=False: Whether or not to normalize
             the target values y by removing the mean and scaling to
             unit-variance. This is recommended for cases where zero-mean, unit-variance priors are used. Note that, in this implementation,
@@ -39,7 +36,7 @@ class QGPR(BaseEstimator, RegressorMixin):
 
     References
     ----------
-       [RW2006] `Carl E. Rasmussen and Christopher K.I. Williams,
+       [1] `Carl E. Rasmussen and Christopher K.I. Williams,
        "Gaussian Processes for Machine Learning",
        MIT Press 2006 <https://www.gaussianprocess.org/gpml/chapters/RW.pdf>`_
 
