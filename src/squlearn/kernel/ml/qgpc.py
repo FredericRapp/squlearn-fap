@@ -6,7 +6,8 @@ from sklearn.gaussian_process import GaussianProcessClassifier
 
 
 class QGPC(GaussianProcessClassifier):
-    """Quantum Gaussian process classification (QGPC), that extends the scikit-learn
+    """
+    Quantum Gaussian process classification (QGPC), that extends the scikit-learn
     `sklearn.gaussian_process.GaussianProcessClassifier <https://scikit-learn.org/stable/modules/generated/sklearn.gaussian_process.GaussianProcessClassifier.html>`.
     GaussianProcessClassifier class
     to use a quantum kernel.

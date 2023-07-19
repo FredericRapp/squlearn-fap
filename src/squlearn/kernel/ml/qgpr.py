@@ -10,7 +10,8 @@ from numbers import Real
 
 
 class QGPR(BaseEstimator, RegressorMixin):
-    """Quantum Gaussian Process Regression (QGPR).
+    """
+    Quantum Gaussian Process Regression (QGPR).
 
     This class implements the Gaussian process regression analogous to sklearn
     but is not a wrapper.

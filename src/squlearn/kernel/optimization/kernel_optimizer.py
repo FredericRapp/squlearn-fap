@@ -8,7 +8,8 @@ from ...optimizers.optimizer_base import OptimizerBase
 
 
 class KernelOptimizer(KernelOptimizerBase):
-    """Quantum kernel optimizer.
+    """
+    Quantum kernel optimizer.
         This class can be used to optimize the variational parameters of a quantum kernel.
 
 

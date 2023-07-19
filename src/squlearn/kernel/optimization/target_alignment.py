@@ -7,7 +7,8 @@ from ..matrix.kernel_matrix_base import KernelMatrixBase
 
 
 class TargetAlignment(KernelLossBase):
-    """Target alignment loss function.
+    """
+    Target alignment loss function.
     This class can be used to compute the target alignment for a given quantum kernel :math:`K_{θ}` with variational parameters :math:`θ`.
     The defintion of the function is taken from Equation (27,28) of [1]_.
     The log-likelihood function is defined as:
