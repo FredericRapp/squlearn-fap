@@ -10,30 +10,28 @@ class TargetAlignment(KernelLossBase):
     """
     Target alignment loss function.
     This class can be used to compute the target alignment for a given quantum kernel :math:`K_{θ}` with variational parameters :math:`θ`.
-    The defintion of the function is taken from Equation (27,28) of [1]_.
+    The defintion of the function is taken from Equation (27,28) of [1].
     The log-likelihood function is defined as:
 
     .. math::
 
-        TA(K_{θ}) = - \\frac{\\sum_{i,j} K_{θ}(x_i, x_j) y_i y_j}{\\sqrt{\\sum_{i,j} K_{θ}(x_i, x_j)^2 \\sum_{i,j} y_i^2 y_j^2}}
+        TA(K_{θ}) =  \\frac{\\sum_{i,j} K_{θ}(x_i, x_j) y_i y_j}{\\sqrt{\\sum_{i,j} K_{θ}(x_i, x_j)^2 \\sum_{i,j} y_i^2 y_j^2}}
 
     Args:
         quantum_kernel (KernelMatrixBase): The quantum kernel to be used
             (either a fidelity quantum kernel (FQK) or projected quantum kernel (PQK) must be provided).
-        sigma: (float), default=0.0: Hyperparameter for the regularization strength.
 
     References
     -----------
-    ..  [1] T. Hubregtsen et al., "Training Quantum Embedding Kernels on Near-Term Quantum Computers",
+        [1]: T. Hubregtsen et al., "Training Quantum Embedding Kernels on Near-Term Quantum Computers",
         `arXiv:2105.02276v1 (2021) <https://arxiv.org/pdf/2105.02276.pdf>`_.
 
     Methods:
     --------
     """
 
-    def __init__(self, quantum_kernel: KernelMatrixBase, sigma=0.0):
+    def __init__(self, quantum_kernel: KernelMatrixBase):
         super().__init__(quantum_kernel)
-        self._sigma = sigma
 
     def compute(
         self,

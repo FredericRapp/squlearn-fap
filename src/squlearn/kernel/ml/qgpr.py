@@ -15,7 +15,7 @@ class QGPR(BaseEstimator, RegressorMixin):
 
     This class implements the Gaussian process regression analogous to sklearn
     but is not a wrapper.
-    The implementation is based on Algorithm 2.1 of Ref. [1]_.
+    The implementation is based on Algorithm 2.1 of Ref. [1].
 
     Args:
         quantum_kernel (KernelMatrixBase): The quantum kernel matrix to be used for the Gaussian process
@@ -37,11 +37,11 @@ class QGPR(BaseEstimator, RegressorMixin):
 
     References
     ----------
-    .. [1] `Carl E. Rasmussen and Christopher K.I. Williams,
+       [1]: `Carl E. Rasmussen and Christopher K.I. Williams,
        "Gaussian Processes for Machine Learning",
        MIT Press 2006 <https://www.gaussianprocess.org/gpml/chapters/RW.pdf>`_
 
-       [2] F.Rapp, M.Roth "Quantum Gaussian Process Regression for Bayesian Optimization",
+       [2]: F.Rapp, M.Roth "Quantum Gaussian Process Regression for Bayesian Optimization",
        `<https://arxiv.org/pdf/2304.12923.pdf>`_.
 
 
